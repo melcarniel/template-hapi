@@ -44,17 +44,3 @@ module.exports = {
     }
   }
 }
-
-// module.exports = {
-//   transform: {
-//     '^.+\\.ts$': 'ts-jest'
-//   },
-//   testRegex: '(/__tests__/|(\\.|/)(test|spec))\\.ts$',
-//   moduleFileExtensions: ['ts', 'js', 'json', 'node'],
-//   coverageReporters: ['lcov', 'text'],
-//   bail: true,
-//   testEnvironment: 'node',
-//   collectCoverageFrom: [
-//     'src/**'
-//   ]
-// }

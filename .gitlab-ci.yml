@@ -15,6 +15,7 @@ stages:
   - build
   - test
   - sonar
+  - fortify
   - deploy
 
 build:
@@ -131,6 +132,7 @@ deploy-production:
     - build
     - test
     - sonar
+    - fortify
   only:
     - tags
   when: manual
@@ -138,3 +140,22 @@ deploy-production:
   cache:
     <<: *global_cache
     policy: pull
+
+fortify:
+  stage: fortify
+  environment:
+    name: production
+  image: gcr.io/magalu-infra-project/magalu-fortify:v0.1.0
+  script: ./scripts/fortify.sh
+  dependencies:
+    - build
+    - test
+    - sonar
+  tags:
+    - fortify
+  cache:
+    <<: *global_cache
+    policy: pull
+  allow_failure: true
+  only:
+    - tags
