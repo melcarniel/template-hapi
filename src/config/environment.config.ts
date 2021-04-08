@@ -15,6 +15,26 @@ const config = {
   service: {
     enabled: process.env.ENABLED_SERVICE === 'true'
   },
+  apis: {
+    magaluEntregas: {
+      baseUrl: process.env.MAGALU_ENTREGAS_URL || 'http://mlentregas-sandbox.magazineluiza.com.br',
+      timeout: process.env.MAGALU_ENTREGAS_TIMEOUT || '50000',
+      secret: {
+        id: process.env.MAGALU_CLIENT_ID || '',
+        secret: process.env.MAGALU_CLIENT_SECRET || ''
+      }
+    },
+    isupplyApi: {
+      baseUrl: process.env.ISUPPLY_API_URL || 'http://localhost:9002/v1/isupply',
+      timeout: process.env.ISUPPLY_API_TIMEOUT || '50000',
+      token: process.env.ISUPPLY_API_TOKEN || ''
+    },
+    apiLuiza: {
+      baseUrl: process.env.API_LUIZA_URL || 'https://stage.apiluiza.com.br/v3',
+      timeout: process.env.API_LUIZA_TIMEOUT || '50000',
+      token: process.env.API_LUIZA_TOKEN || ''
+    }
+  },
   plugins: {
     newrelic: {
       enable: process.env.NEWRELIC_ENABLE ? process.env.NEWRELIC_ENABLE === 'true' : false,
