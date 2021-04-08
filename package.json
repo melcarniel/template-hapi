@@ -7,7 +7,9 @@
     "build": "scripts/build.sh",
     "test": "scripts/test.sh",
     "start": "ts-node src/index",
-    "sonar-scanner": "scripts/sonar.sh"
+    "sonar-scanner": "scripts/sonar.sh",
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .ts ."
   },
   "author": "",
   "license": "ISC",
@@ -24,7 +26,6 @@
     "husky": "^6.0.0",
     "jest": "^26.6.3",
     "jest-sonar-reporter": "^2.0.0",
-    "lint-staged": "^10.5.4",
     "sonarqube-scanner": "^2.8.0",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
@@ -37,5 +38,11 @@
     "dotenv": "^8.2.0",
     "newrelic": "^7.3.0",
     "sqs-consumer": "^5.5.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run build",
+      "pre-push": "npm run test"
+    }
   }
 }
