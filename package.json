@@ -6,7 +6,8 @@
   "scripts": {
     "build": "scripts/build.sh",
     "test": "scripts/test.sh",
-    "start": "ts-node src/index"
+    "start": "ts-node src/index",
+    "sonar-scanner": "scripts/sonar.sh"
   },
   "author": "",
   "license": "ISC",
