@@ -1,0 +1,140 @@
+image: node:lts
+
+cache: &global_cache
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+  policy: pull-push
+
+variables:
+  CLUSTER_URL_STAGE: teresa-gcp-staging.magazineluiza.com.br
+  CLUSTER_URL_PRODUCTION: teresa-prod-logistica-a.magazineluiza.com.br
+  TZ: "/usr/share/zoneinfo/America/Sao_Paulo"
+
+stages:
+  - build
+  - test
+  - sonar
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm install --silent
+    - npm run build --silent
+
+test:
+  stage: test
+  dependencies:
+    - build
+  script:
+    - npm run test:staged
+  coverage: /All files[^|]*\|[^|]*\s+([\d\.]+)/
+  artifacts:
+    expire_in: 2 hours
+    paths:
+      - "./coverage/lcov.info"
+      - "./test-report.xml"
+
+sonar:
+  stage: sonar
+  environment:
+    name: production
+  dependencies:
+    - build
+    - test
+  before_script:
+    - chmod +x ./scripts/sonar.sh
+  script:
+    - npm run sonar-scanner
+  variables:
+    SONAR_SECRET_TOKEN: $SONAR_TOKEN
+    SONAR_HOST_URL: $SONAR_URL
+  allow_failure: true
+  cache:
+    <<: *global_cache
+    policy: pull
+  only:
+    - tags
+
+sonar-stage:
+  stage: sonar
+  environment:
+    name: stage
+  dependencies:
+    - build
+    - test
+  before_script:
+    - chmod +x ./scripts/sonar.sh
+  script:
+    - npm run sonar-scanner
+  variables:
+    SONAR_SECRET_TOKEN: $STAGE_SONAR_TOKEN
+    SONAR_HOST_URL: $STAGE_SONAR_URL
+  allow_failure: false
+  cache:
+    <<: *global_cache
+    policy: pull
+  only:
+    - /^STK*/
+    - /^UST*/
+    - /^TST*/
+    - /^IMP*/
+    - /^BUG*/
+    - master
+
+deploy-manual-stage:
+  stage: deploy
+  environment:
+    name: stage
+  variables:
+    CLUSTER_URL: $CLUSTER_URL_STAGE
+  script: ./scripts/deploy.sh
+  dependencies:
+    - build
+    - test
+    - sonar
+  allow_failure: false
+  cache:
+    <<: *global_cache
+    policy: pull
+  only:
+    - /^UST*/
+  when: manual
+
+deploy-auto-stage:
+  stage: deploy
+  environment:
+    name: stage
+  variables:
+    CLUSTER_URL: $CLUSTER_URL_STAGE
+  script: ./scripts/deploy.sh
+  dependencies:
+    - build
+    - test
+    - sonar
+  allow_failure: false
+  cache:
+    <<: *global_cache
+    policy: pull
+  only:
+    - master
+
+deploy-production:
+  stage: deploy
+  environment:
+    name: production
+  variables:
+    CLUSTER_URL: $CLUSTER_URL_PRODUCTION
+  script: ./scripts/deploy.sh
+  dependencies:
+    - build
+    - test
+    - sonar
+  only:
+    - tags
+  when: manual
+  allow_failure: false
+  cache:
+    <<: *global_cache
+    policy: pull
