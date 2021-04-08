@@ -16,6 +16,11 @@ const config = {
     enabled: process.env.ENABLED_SERVICE === 'true'
   },
   plugins: {
+    newrelic: {
+      enable: process.env.NEWRELIC_ENABLE ? process.env.NEWRELIC_ENABLE === 'true' : false,
+      token: process.env.NEWRELIC_TOKEN || '',
+      appName: process.env.APP_NAME ? process.env.APP_NAME : 'isupply-consumer'
+    },
     burzum: {
       enabled: process.env.BURZUM_ENABLE ? process.env.BURZUM_ENABLE === 'true' : false,
       host: process.env.BURZUM_HOST ? process.env.BURZUM_HOST : '',
