@@ -8,6 +8,7 @@ const configConsumer = Config.plugins.sqs.consumer
 
 export default class AwsConsumerServer {
   readonly consumerEvents = new ConsumerEvents()
+  public consumer: Consumer
 
   getConsumer (): Consumer {
     AWS.config.update({
@@ -16,12 +17,12 @@ export default class AwsConsumerServer {
       secretAccessKey: configConsumer.secretId
     })
 
-    const consumer = Consumer.create({
-      batchSize: parseInt(configConsumer.batchSize, 10),
+    this.consumer = Consumer.create({
+      batchSize: Number(configConsumer.batchSize),
       queueUrl: configConsumer.queueUrl,
 
       handleMessage: async (message) => {
-        await this.consumerEvents.handlerEvents(message)
+        await this.consumerEvents.handleEvents(message)
       },
       sqs: new AWS.SQS({
         httpOptions: {
@@ -32,22 +33,23 @@ export default class AwsConsumerServer {
       })
     })
 
-    consumer.on('error', (err) => this.consumerEvents.getError(err))
+    this.consumer.on('error', (err) => this.consumerEvents.handleError(err))
 
-    consumer.on('processing_error', (err, message) => {
-      this.consumerEvents.getProcessingError(err, message)
+    this.consumer.on('processing_error', (err, message) => {
+      this.consumerEvents.handleProcessingError(err, message)
     })
 
-    return consumer
+    return this.consumer
   }
 
   startConsumer (): void {
-    const consumer = this.getConsumer()
-    consumer.start()
+    this.getConsumer()
+    this.consumer.start()
   }
 
   stopConsumer (): void {
-    const consumer = this.getConsumer()
-    consumer.stop()
+    if (this.consumer) {
+      this.consumer.stop()
+    }
   }
 }

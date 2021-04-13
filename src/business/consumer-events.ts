@@ -3,11 +3,11 @@ import { STATUS } from '../utils/enums'
 import { SQSMessage } from '../utils/types'
 
 export default class ConsumerEvents {
-  async handlerEvents (message: SQSMessage): Promise<void> {
+  async handleEvents (message: SQSMessage): Promise<void> {
     logInfo({ payload: message.Body })
   }
 
-  getProcessingError (err: Error, message: SQSMessage): void {
+  handleProcessingError (err: Error, message: SQSMessage): void {
     logError({
       error: err.message,
       payload: JSON.stringify(message),
@@ -15,7 +15,7 @@ export default class ConsumerEvents {
     })
   }
 
-  getError (err: Error): any {
+  handleError (err: Error): any {
     logError({
       error: err.message,
       status: STATUS.FAILED
