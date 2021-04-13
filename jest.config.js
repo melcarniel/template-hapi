@@ -24,14 +24,6 @@ module.exports = {
     '<rootDir>/src/util/.*',
     '<rootDir>/src/plugins/.*'
   ],
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 90,
-      lines: 90,
-      statements: 90
-    }
-  },
   moduleDirectories: [
     'src',
     'node_modules'
