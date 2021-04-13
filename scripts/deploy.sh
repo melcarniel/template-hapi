@@ -30,8 +30,7 @@ PACKAGE_VERSION=$(cat package.json \
   | tr -d '[[:space:]]')
 
 # Init Deploy
-./teresa deploy create . --app $APP_NAME --description "Deploy GITLAB CI ${CI_COMMIT_REF_NAME} - ${PACKAGE_VERSION}" 
---cluster $CI_ENVIRONMENT_NAME --no-input
+./teresa deploy create . --app $APP_NAME --description "Deploy GITLAB CI ${CI_COMMIT_REF_NAME} - ${PACKAGE_VERSION}" --cluster $CI_ENVIRONMENT_NAME --no-input
 
 # Check Status
 ./teresa app info $APP_NAME --cluster $CI_ENVIRONMENT_NAME | grep Name
