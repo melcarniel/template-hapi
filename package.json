@@ -2,14 +2,15 @@
   "name": "isupply-consumer",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "scripts/build.sh",
+    "server": "node ./server.js",
     "test": "scripts/test.sh",
     "start": "ts-node src/index",
     "sonar-scanner": "scripts/sonar.sh",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix --ext .ts .",
+    "lint": "eslint ./src",
+    "lint:fix": "eslint --fix --ext .ts ./src",
     "prepare": "husky install"
   },
   "author": "",
@@ -37,6 +38,7 @@
     "bunyan": "^1.8.15",
     "bunyan-logstash-tcp-fork": "^1.0.0",
     "dotenv": "^8.2.0",
+    "express": "^4.17.1",
     "mongodb": "^3.6.6",
     "newrelic": "^7.3.0",
     "sqs-consumer": "^5.5.0"
