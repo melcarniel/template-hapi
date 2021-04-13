@@ -14,23 +14,23 @@ const mockError: Error = {
   message: 'erro ao processar evento'
 }
 
-it('handlerEvents', () => {
+it('handleEvents', () => {
   const mockLog = jest.spyOn(log, 'logInfo')
-  events.handlerEvents(mockMessage)
+  events.handleEvents(mockMessage)
 
   expect(mockLog).toHaveBeenCalledTimes(1)
 })
 
-it('getProcessingError', () => {
+it('handleProcessingError', () => {
   const mockLog = jest.spyOn(log, 'logError')
-  events.getProcessingError(mockError, mockMessage)
+  events.handleProcessingError(mockError, mockMessage)
 
   expect(mockLog).toHaveBeenCalledTimes(1)
 })
 
-it('getError', () => {
+it('handleError', () => {
   const mockLog = jest.spyOn(log, 'logError')
-  events.getError(mockError)
+  events.handleError(mockError)
 
   expect(mockLog).toHaveBeenCalledWith({
     error: 'erro ao processar evento',
