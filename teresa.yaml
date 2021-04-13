@@ -1,0 +1,15 @@
+healthCheck:
+  liveness:
+    path: /ping
+    timeoutSeconds: 5
+    initialDelaySeconds: 10
+    periodSeconds: 60
+    failureThreshold: 10
+    successThreshold: 1
+  readiness:
+    path: /ping
+    timeoutSeconds: 5
+    initialDelaySeconds: 10
+    periodSeconds: 60
+    failureThreshold: 10
+    successThreshold: 1
