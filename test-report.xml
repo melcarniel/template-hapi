@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <testExecutions version="1">
-  <file path="/home/luizalabs/Desktop/iSupply/isupply-consumer/__tests__/index.spec.ts">
-    <testCase name="" duration="4"/>
+  <file path="/home/luizalabs/Desktop/iSupply/isupply-consumer/__tests__/business/consumer-events.test.ts">
+    <testCase name="handlerEvents" duration="9"/>
+    <testCase name="getProcessingError" duration="2"/>
+    <testCase name="getError" duration="2"/>
+  </file>
+  <file path="/home/luizalabs/Desktop/iSupply/isupply-consumer/__tests__/external/aws-consumer-server.test.ts">
+    <testCase name="start" duration="35"/>
+  </file>
+  <file path="/home/luizalabs/Desktop/iSupply/isupply-consumer/__tests__/index.test.ts">
+    <testCase name="main" duration="2"/>
   </file>
 </testExecutions>
