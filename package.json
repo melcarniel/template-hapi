@@ -37,6 +37,7 @@
     "bunyan": "^1.8.15",
     "bunyan-logstash-tcp-fork": "^1.0.0",
     "dotenv": "^8.2.0",
+    "mongodb": "^3.6.6",
     "newrelic": "^7.3.0",
     "sqs-consumer": "^5.5.0"
   }
