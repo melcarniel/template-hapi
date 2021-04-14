@@ -2,11 +2,6 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// Health Check
-app.get('/ping', function (req, res, next) {
-  res.send({ status: 'ok' });
-});
-
 // CORS (Cross-Origin Resource Sharing) headers to support Cross-site HTTP requests
 app.all('*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
@@ -16,7 +11,7 @@ app.all('*', function (req, res, next) {
 
 // Redirect para todas as rotas
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.send({ status: 'ok' });
 });
 
 app.set('port', process.env.PORT || 5000);
