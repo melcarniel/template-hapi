@@ -6,6 +6,11 @@ module.exports = {
   transform: {
     '^.+\\.tsx?$': 'ts-jest'
   },
+  collectCoverageFrom: [
+    'src/external/**',
+    'src/business/**',
+    'src/index.ts'
+  ],
   coveragePathIgnorePatterns: [
     '<rootDir>/node_modules/',
     '<rootDir>/__tests__/.*',
@@ -19,14 +24,6 @@ module.exports = {
     '<rootDir>/src/util/.*',
     '<rootDir>/src/plugins/.*'
   ],
-  coverageThreshold: {
-    global: {
-      branches: 70,
-      functions: 90,
-      lines: 90,
-      statements: 90
-    }
-  },
   moduleDirectories: [
     'src',
     'node_modules'
