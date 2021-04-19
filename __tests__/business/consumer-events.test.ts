@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import ConsumerEvents from '../../src/business/consumer-events'
 import * as log from '../../src/utils/burzum-log'
-import { SQSMessage } from '../../src/utils/types'
-
+import { mockMessage, mockInvalidMessage } from './mock'
 const events: ConsumerEvents = new ConsumerEvents()
-
-const mockMessage: SQSMessage = {
-  Body: 'Teste'
-}
 
 const mockError: Error = {
   name: 'error',
@@ -19,6 +14,13 @@ it('handleEvents', () => {
   events.handleEvents(mockMessage)
 
   expect(mockLog).toHaveBeenCalledTimes(1)
+})
+
+it('handleEvents with invalid messsage', () => {
+  const mockLog = jest.spyOn(log, 'logInfo')
+  events.handleEvents(mockInvalidMessage)
+
+  expect(mockLog).toHaveBeenCalledTimes(2)
 })
 
 it('handleProcessingError', () => {
