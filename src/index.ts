@@ -1,18 +1,16 @@
-import AwsConsumerServer from './external/aws-consumer-server'
-import { logError } from './utils/burzum-log'
-import { STATUS } from './utils/enums'
+import Logger from './plugins/logger.plugin'
+import Server from './server';
 
-const server: AwsConsumerServer = new AwsConsumerServer()
+(async () => {
+  await Server.start()
+})()
 
-export const main = (): void => {
-  try {
-    server.startConsumer()
-  } catch (error) {
-    logError({
-      error: error.message,
-      status: STATUS.FAILED
-    })
-  }
-}
+// listen on SIGINT signal and gracefully stop the server
+process.on('SIGINT', () => {
+  Logger.info('Stopping hapi server')
 
-main()
+  Server.stop().then(err => {
+    Logger.info('Server stopped')
+    process.exit(err ? 1 : 0)
+  })
+})
