@@ -23,24 +23,7 @@ interface IResponseOptions<T> {
   value?: T | null | undefined
   boom?: Boom<any> | null | undefined
 }
-export interface ThrowCustomErrorType {
-  statusCode: number
-  developerMessage: string
-  userMessage: string
-  errorCode?: number
-}
-export class CustomError extends Error {
-  code: number
-  userMessage: string
-  constructor (message, code, usermessage) {
-    super(message)
-    Error.captureStackTrace(this, this.constructor)
 
-    this.name = this.constructor.name
-    this.code = code
-    this.userMessage = usermessage
-  }
-}
 export default function createResponse<T> (
   request: Hapi.Request,
   { value = null, boom = null }: IResponseOptions<T>

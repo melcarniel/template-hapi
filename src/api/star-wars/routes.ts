@@ -20,7 +20,7 @@ export default class StarWarsRoutes implements IRoute {
             validate: validate.getById,
             description: 'Method that get a user by its id.',
             tags: ['api', 'users'],
-            auth: false
+            auth: 'jwt'
           }
         },
         {
@@ -31,7 +31,7 @@ export default class StarWarsRoutes implements IRoute {
             validate: validate.getById,
             description: 'Method that gets all users.',
             tags: ['api', 'users'],
-            auth: false
+            auth: 'jwt'
           }
         },
         {
@@ -42,7 +42,7 @@ export default class StarWarsRoutes implements IRoute {
             validate: validate.getById,
             description: 'Method that gets all users.',
             tags: ['api', 'users'],
-            auth: false
+            auth: 'jwt'
           }
         }
       ])

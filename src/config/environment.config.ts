@@ -25,7 +25,16 @@ const config = {
         info: {
           title: 'Test API Documentation',
           version: pack.version
-        }
+        },
+        securityDefinitions: {
+          jwt: {
+            type: 'apiKey',
+            name: 'Authorization',
+            in: 'header'
+            // 'x-keyPrefix': 'Bearer '
+          }
+        },
+        security: [{ jwt: [] }]
       }
     }
   },
