@@ -14,8 +14,8 @@ const config = {
   env: process.env.NODE_ENV || 'development',
   appName: process.env.APP_NAME ? process.env.APP_NAME : 'template-hapi',
   projectVersion: pack.version,
-  host: 'localhost',
-  port: 9000,
+  host: process.env.HOST || 'localhost',
+  port: process.env.PORT || 9000,
   service: {
     enabled: process.env.ENABLED_SERVICE === 'true'
   },

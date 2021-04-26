@@ -1,8 +1,11 @@
 {
   "name": "template-hapi",
   "version": "1.0.0",
-  "description": "",
+  "description": "API star wars",
   "main": "dist/index.js",
+  "engines": {
+    "node": ">=12 <15"
+  },
   "scripts": {
     "dev": "npm run nodemon:build",
     "nodemon:build": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
@@ -38,6 +41,7 @@
     "@hapi/hapi": "^20.1.2",
     "@hapi/inert": "^6.0.3",
     "@hapi/vision": "^6.0.1",
+    "@types/hapi__hapi": "^20.0.8",
     "axios": "^0.21.1",
     "dotenv": "^8.2.0",
     "hapi-auth-jwt2": "^10.2.0",

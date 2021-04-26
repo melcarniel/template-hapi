@@ -7,7 +7,7 @@ export default class StarWarsController {
   private readonly serviceStarWars: StarWarsService = new StarWarsService()
 
   public getPeople = async (
-    request: Hapi.RequestToolkit, toolkit: Hapi.ResponseToolkit
+    request: Hapi.Request, toolkit: Hapi.ResponseToolkit
   ): Promise<any> => {
     try {
       const { data } = await this.serviceStarWars.readPeople(request.params.id)
@@ -23,7 +23,7 @@ export default class StarWarsController {
   }
 
   public getStarShip = async (
-    request: Hapi.RequestToolkit, toolkit: Hapi.ResponseToolkit
+    request: Hapi.Request, toolkit: Hapi.ResponseToolkit
   ): Promise<any> => {
     try {
       const { data } = await this.serviceStarWars.readStarships(request.params.id)
@@ -40,7 +40,7 @@ export default class StarWarsController {
   }
 
   public getPlanet = async (
-    request: Hapi.RequestToolkit, toolkit: Hapi.ResponseToolkit
+    request: Hapi.Request, toolkit: Hapi.ResponseToolkit
   ): Promise<any> => {
     try {
       const { data } = await this.serviceStarWars.readPlanets(request.params.id)
