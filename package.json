@@ -11,7 +11,7 @@
     "nodemon:build": "nodemon --exec ./node_modules/.bin/ts-node -- ./src/index.ts",
     "build": "scripts/build.sh",
     "test": "scripts/test.sh",
-    "start": "ts-node src/index",
+    "start": "./node_modules/.bin/ts-node -- ./src/index.ts",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix --ext .ts ./src",
     "prepare": "husky install"
